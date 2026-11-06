@@ -1,0 +1,45 @@
+{
+  "data_source": "SYNTHETIC MO/narratives/series; space-time backdrop: train=data/spd/spd_220_2022-04-01_2022-11-30.jsonl, test=data/spd/spd_220_2023-04-01_2023-11-30.jsonl",
+  "train_seed": 20261106,
+  "test_seed": 777,
+  "model_sha256": "364156cb726a60519c3dfb21ce8061424733f7700dd0278d11a48d0bf162ac56",
+  "coef": {
+    "log_distance_km": -0.234,
+    "log_days_apart": -0.469,
+    "mo_jaccard": 10.648,
+    "same_target_type": 2.908,
+    "both_night": 1.784
+  },
+  "intercept": -14.226,
+  "candidate_pairs": 1081228,
+  "true_pairs_total": 286,
+  "true_pairs_in_candidates": 266,
+  "blocking_recall_loss": 0.0699,
+  "auc": 0.9756,
+  "auc_95ci": [
+    0.9671,
+    0.9837
+  ],
+  "precision_at_k": {
+    "10": 0.7,
+    "25": 0.64,
+    "50": 0.62,
+    "100": 0.56
+  },
+  "threshold": 0.3,
+  "series_member_recall_best_component": {
+    "TS-00": "2/4",
+    "TS-01": "2/6",
+    "TS-02": "4/10",
+    "TS-03": "5/9",
+    "TS-04": "2/6",
+    "TS-05": "7/12",
+    "TS-06": "6/11",
+    "TS-07": "2/7",
+    "TS-08": "2/7",
+    "TS-09": "3/4"
+  },
+  "non_series_cases_in_flagged_components": 66,
+  "decoy_cases_flagged": 0,
+  "decoy_cases_total": 10
+}

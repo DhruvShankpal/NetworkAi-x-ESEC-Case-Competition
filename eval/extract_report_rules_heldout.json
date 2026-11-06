@@ -1,0 +1,27 @@
+{
+  "extractor": "rules",
+  "split": "heldout",
+  "n": 200,
+  "per_field": {
+    "entry_point": 0.98,
+    "entry_method": 0.995,
+    "target_type": 0.985,
+    "occupancy": 0.98,
+    "offender_count": 1.0,
+    "vehicle_mentioned": 1.0,
+    "tools": 0.982,
+    "property_categories": 0.967
+  },
+  "overall": 0.986,
+  "per_tag": {
+    "clean": 0.994,
+    "distractor": 0.988,
+    "injection": 0.984,
+    "missing_entry": 0.987,
+    "negation": 0.988,
+    "shorthand": 0.988,
+    "typos": 0.952,
+    "vehicle": 0.973
+  },
+  "fields_at_or_above_0.90": 8
+}

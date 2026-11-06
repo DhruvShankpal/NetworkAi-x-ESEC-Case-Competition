@@ -1,0 +1,133 @@
+{
+  "method": "Leave-one-year-out test on REAL LA data, 2020-2023 (Apr-Nov each year).\n\nFor each test year Y: train on the OTHER three years (one synthetic-series seed per year), test on Y.\n2020 is the COVID year (very different burglary mix), so it is the hardest generalization check.\n2024 is excluded: LAPD's move to NIBRS in March 2024 leaves only ~1,000 records in the window.\nModels compared every year:\n  baseline  = distance, time, plain MO overlap, same target, both night (the Seattle-style model)\n  final     = rare-behaviour MO weighting + closest-neighbour ranks + same-event merge\nRun: uv run python eval/multiyear.py",
+  "rows": [
+    {
+      "test_year": 2020,
+      "train_years": [
+        2021,
+        2022,
+        2023
+      ],
+      "cases": 8764,
+      "candidate_pairs": 1969668,
+      "baseline": {
+        "auc": 0.7988,
+        "hit_at_1": 0.159,
+        "hit_at_3": 0.33,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0
+      },
+      "final": {
+        "auc": 0.9816,
+        "hit_at_1": 0.75,
+        "hit_at_3": 0.932,
+        "precision_at_100": 0.02,
+        "precision_at_25": 0.0
+      }
+    },
+    {
+      "test_year": 2021,
+      "train_years": [
+        2020,
+        2022,
+        2023
+      ],
+      "cases": 8167,
+      "candidate_pairs": 1576827,
+      "baseline": {
+        "auc": 0.8175,
+        "hit_at_1": 0.178,
+        "hit_at_3": 0.366,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0
+      },
+      "final": {
+        "auc": 0.972,
+        "hit_at_1": 0.762,
+        "hit_at_3": 0.941,
+        "precision_at_100": 0.02,
+        "precision_at_25": 0.0
+      }
+    },
+    {
+      "test_year": 2022,
+      "train_years": [
+        2020,
+        2021,
+        2023
+      ],
+      "cases": 9526,
+      "candidate_pairs": 2396332,
+      "baseline": {
+        "auc": 0.836,
+        "hit_at_1": 0.211,
+        "hit_at_3": 0.347,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0
+      },
+      "final": {
+        "auc": 0.9625,
+        "hit_at_1": 0.6,
+        "hit_at_3": 0.884,
+        "precision_at_100": 0.01,
+        "precision_at_25": 0.0
+      }
+    },
+    {
+      "test_year": 2023,
+      "train_years": [
+        2020,
+        2021,
+        2022
+      ],
+      "cases": 9564,
+      "candidate_pairs": 2562801,
+      "baseline": {
+        "auc": 0.8559,
+        "hit_at_1": 0.256,
+        "hit_at_3": 0.389,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0
+      },
+      "final": {
+        "auc": 0.9797,
+        "hit_at_1": 0.767,
+        "hit_at_3": 0.911,
+        "precision_at_100": 0.04,
+        "precision_at_25": 0.0
+      }
+    }
+  ],
+  "summary": {
+    "baseline_hit_at_1": {
+      "mean": 0.201,
+      "min": 0.159,
+      "max": 0.256
+    },
+    "baseline_hit_at_3": {
+      "mean": 0.358,
+      "min": 0.33,
+      "max": 0.389
+    },
+    "baseline_auc": {
+      "mean": 0.827,
+      "min": 0.7988,
+      "max": 0.8559
+    },
+    "final_hit_at_1": {
+      "mean": 0.72,
+      "min": 0.6,
+      "max": 0.767
+    },
+    "final_hit_at_3": {
+      "mean": 0.917,
+      "min": 0.884,
+      "max": 0.941
+    },
+    "final_auc": {
+      "mean": 0.974,
+      "min": 0.9625,
+      "max": 0.9816
+    }
+  }
+}

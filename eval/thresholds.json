@@ -1,0 +1,12 @@
+{
+  "blocking": {
+    "corridor_days": 45.0,
+    "corridor_km": 60.0,
+    "local_days": 21.0,
+    "local_km": 3.0
+  },
+  "link_threshold": 0.3,
+  "model_sha256": "364156cb726a60519c3dfb21ce8061424733f7700dd0278d11a48d0bf162ac56",
+  "model_version": "lr-v1",
+  "series_min_size": 2
+}
