@@ -1,0 +1,149 @@
+{
+  "protocol": "Accuracy-improvement experiments on the realistic set (real SPD space-time backdrop).\n\nProtocol (no test-set peeking):\n  train      = 3 synthetic seeds over SPD 2022 burglaries\n  validation = 1 more seed over SPD 2022  -> every threshold is chosen here (max member-F1)\n  test       = seed 777 over SPD 2023     -> scored once per step, never used for choices\n  stress     = seed 778 over SPD 2023 with noisier MO (mo_mutation 0.25) -> robustness check",
+  "steps": [
+    {
+      "step": "S0 shipped model",
+      "how": "1 training set; threshold 0.3 (chosen on test last round)",
+      "threshold": 0.3,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": -0.234,
+        "log_days": -0.469,
+        "mo_jaccard": 10.648,
+        "same_target": 2.908,
+        "both_night": 1.784
+      },
+      "test": {
+        "member_recall": 0.4605263157894737,
+        "member_precision": 0.3465346534653465,
+        "member_f1": 0.3954802259887006,
+        "cases_flagged": 101,
+        "false_members": 66,
+        "auc": 0.9755598511506869,
+        "link_precision": 0.5977011494252874,
+        "links_shown": 87,
+        "precision_at_50": 0.62
+      },
+      "stress": {
+        "member_recall": 0.2608695652173913,
+        "member_precision": 0.2653061224489796,
+        "member_f1": 0.2630691399662732,
+        "cases_flagged": 98,
+        "false_members": 72,
+        "auc": 0.9012797646570676,
+        "link_precision": 0.3472222222222222,
+        "links_shown": 72,
+        "precision_at_50": 0.46
+      }
+    },
+    {
+      "step": "S1 more data + honest threshold",
+      "how": "3 training sets; threshold 0.3 chosen on validation",
+      "threshold": 0.3,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": -0.712,
+        "log_days": -0.664,
+        "mo_jaccard": 9.366,
+        "same_target": 2.238,
+        "both_night": 2.128
+      },
+      "test": {
+        "member_recall": 0.2894736842105263,
+        "member_precision": 0.6744186046511628,
+        "member_f1": 0.4050793650793651,
+        "cases_flagged": 43,
+        "false_members": 14,
+        "auc": 0.9741351038012326,
+        "link_precision": 0.7307692307692307,
+        "links_shown": 26,
+        "precision_at_50": 0.66
+      },
+      "stress": {
+        "member_recall": 0.18478260869565216,
+        "member_precision": 0.4857142857142857,
+        "member_f1": 0.2677165354330709,
+        "cases_flagged": 35,
+        "false_members": 18,
+        "auc": 0.9041237938594958,
+        "link_precision": 0.5714285714285714,
+        "links_shown": 21,
+        "precision_at_50": 0.44
+      }
+    },
+    {
+      "step": "S2 + 'closest neighbour' features",
+      "how": "adds space-time rank and MO rank; threshold 0.25",
+      "threshold": 0.25,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": 0.356,
+        "log_days": 0.46,
+        "mo_jaccard": 0.855,
+        "same_target": 0.279,
+        "both_night": 0.793,
+        "st_rank": -1.459,
+        "mo_rank": -1.525
+      },
+      "test": {
+        "member_recall": 0.40789473684210525,
+        "member_precision": 0.1524822695035461,
+        "member_f1": 0.22198168193172357,
+        "cases_flagged": 282,
+        "false_members": 239,
+        "auc": 0.968399447676605,
+        "link_precision": 0.21686746987951808,
+        "links_shown": 166,
+        "precision_at_50": 0.28
+      },
+      "stress": {
+        "member_recall": 0.3804347826086957,
+        "member_precision": 0.13333333333333333,
+        "member_f1": 0.1974612129760226,
+        "cases_flagged": 315,
+        "false_members": 273,
+        "auc": 0.960002629664256,
+        "link_precision": 0.2835820895522388,
+        "links_shown": 201,
+        "precision_at_50": 0.46
+      }
+    },
+    {
+      "step": "S3 + series-level evidence",
+      "how": "seed groups at p>=0.6; add a case if combined evidence to the group >= 0.3",
+      "threshold": 0.6,
+      "grow_tau": 0.3,
+      "coef": {
+        "log_dist": 0.356,
+        "log_days": 0.46,
+        "mo_jaccard": 0.855,
+        "same_target": 0.279,
+        "both_night": 0.793,
+        "st_rank": -1.459,
+        "mo_rank": -1.525
+      },
+      "test": {
+        "member_recall": 0.35526315789473684,
+        "member_precision": 0.35555555555555557,
+        "member_f1": 0.3554092965857672,
+        "cases_flagged": 90,
+        "false_members": 58,
+        "auc": 0.968399447676605,
+        "link_precision": 0.34210526315789475,
+        "links_shown": 38,
+        "precision_at_50": 0.28
+      },
+      "stress": {
+        "member_recall": 0.31521739130434784,
+        "member_precision": 0.4025974025974026,
+        "member_f1": 0.35358898721730575,
+        "cases_flagged": 77,
+        "false_members": 46,
+        "auc": 0.960002629664256,
+        "link_precision": 0.4772727272727273,
+        "links_shown": 44,
+        "precision_at_50": 0.46
+      }
+    }
+  ]
+}

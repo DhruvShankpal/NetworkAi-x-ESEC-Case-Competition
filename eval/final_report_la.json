@@ -1,0 +1,182 @@
+{
+  "protocol": "Final LA (real MO) evaluation with detective-facing operating modes. Datasets cached.\n\nAdds two things to improve_la.py:\n  * a wider threshold grid (true pairs are ~1 in 3,000+ candidates, so useful thresholds are low or very high);\n  * a TOP-3 mode, which is how a detective uses the tool: for each case, the 3 strongest candidates.\n    hit@3 = among series cases, the share whose top-3 list contains at least one true series partner.\nEvery choice (threshold, tau) is made on validation; test and stress are scored once.\nRun: uv run python eval/final_la.py",
+  "test_size": {
+    "cases": 9564,
+    "candidate_pairs": 2562801,
+    "true_pairs": 274
+  },
+  "steps": [
+    {
+      "step": "L0 Seattle-style model on real MO",
+      "threshold": 0.02,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": -1.938,
+        "log_days": -1.67,
+        "mo_jaccard": -0.322,
+        "same_target": -0.716,
+        "both_night": -0.154
+      },
+      "test": {
+        "member_recall": 0.1,
+        "member_precision": 0.004022988505747126,
+        "member_f1": 0.007734806629834254,
+        "cases_flagged": 3480,
+        "false_members": 3466,
+        "auc": 0.8367166529751844,
+        "link_precision": 0.0,
+        "links_shown": 2579,
+        "precision_at_50": 0.0,
+        "hit_at_3": 0.36666666666666664,
+        "precision_of_top3_suggestions": 0.001603625588286561,
+        "series_cases": 90,
+        "cases": 9564
+      },
+      "stress": {
+        "member_recall": 0.07547169811320754,
+        "member_precision": 0.006025824964131995,
+        "member_f1": 0.011160566000132864,
+        "cases_flagged": 3485,
+        "false_members": 3464,
+        "auc": 0.8370215178028806,
+        "link_precision": 0.0,
+        "links_shown": 2593,
+        "precision_at_50": 0.0,
+        "hit_at_3": 0.24528301886792453,
+        "precision_of_top3_suggestions": 0.0012525224410270684,
+        "series_cases": 106,
+        "cases": 9581
+      }
+    },
+    {
+      "step": "L1 + rare behaviours count more",
+      "threshold": 0.02,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": -1.96,
+        "log_days": -1.679,
+        "mo_rarity_jaccard": -0.095,
+        "same_target": -0.742,
+        "both_night": -0.158
+      },
+      "test": {
+        "member_recall": 0.1,
+        "member_precision": 0.003970504821327283,
+        "member_f1": 0.007637752318603382,
+        "cases_flagged": 3526,
+        "false_members": 3512,
+        "auc": 0.8399773998179756,
+        "link_precision": 0.0,
+        "links_shown": 2622,
+        "precision_at_50": 0.0,
+        "hit_at_3": 0.37777777777777777,
+        "precision_of_top3_suggestions": 0.0016384870141188774,
+        "series_cases": 90,
+        "cases": 9564
+      },
+      "stress": {
+        "member_recall": 0.07547169811320754,
+        "member_precision": 0.00594732370433305,
+        "member_f1": 0.011025792478834416,
+        "cases_flagged": 3531,
+        "false_members": 3510,
+        "auc": 0.8387371385504757,
+        "link_precision": 0.0,
+        "links_shown": 2636,
+        "precision_at_50": 0.0,
+        "hit_at_3": 0.2641509433962264,
+        "precision_of_top3_suggestions": 0.0013221070210841278,
+        "series_cases": 106,
+        "cases": 9581
+      }
+    },
+    {
+      "step": "L2 + 'closest neighbour' ranks",
+      "threshold": 0.02,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": -0.398,
+        "log_days": -0.486,
+        "mo_rarity_jaccard": -0.059,
+        "same_target": -0.216,
+        "both_night": -0.019,
+        "st_rank": -0.768,
+        "mo_rank": -1.005
+      },
+      "test": {
+        "member_recall": 0.4444444444444444,
+        "member_precision": 0.01517405534067242,
+        "member_f1": 0.029346184276774802,
+        "cases_flagged": 3361,
+        "false_members": 3310,
+        "auc": 0.9793209100714364,
+        "link_precision": 0.015637530072173216,
+        "links_shown": 2494,
+        "precision_at_50": 0.0,
+        "hit_at_3": 0.9,
+        "precision_of_top3_suggestions": 0.006275056649816977,
+        "series_cases": 90,
+        "cases": 9564
+      },
+      "stress": {
+        "member_recall": 0.29245283018867924,
+        "member_precision": 0.01516052318668252,
+        "member_f1": 0.028826693408697236,
+        "cases_flagged": 3364,
+        "false_members": 3313,
+        "auc": 0.9672660706237043,
+        "link_precision": 0.01325301204819277,
+        "links_shown": 2490,
+        "precision_at_50": 0.0,
+        "hit_at_3": 0.8301886792452831,
+        "precision_of_top3_suggestions": 0.006123443045021223,
+        "series_cases": 106,
+        "cases": 9581
+      }
+    },
+    {
+      "step": "L3 + series-level evidence",
+      "threshold": 0.2,
+      "grow_tau": 0.3,
+      "coef": {
+        "log_dist": -0.398,
+        "log_days": -0.486,
+        "mo_rarity_jaccard": -0.059,
+        "same_target": -0.216,
+        "both_night": -0.019,
+        "st_rank": -0.768,
+        "mo_rank": -1.005
+      },
+      "test": {
+        "member_recall": 0.022222222222222223,
+        "member_precision": 0.007575757575757576,
+        "member_f1": 0.011299435028248588,
+        "cases_flagged": 264,
+        "false_members": 262,
+        "auc": 0.9793209100714364,
+        "link_precision": 0.007246376811594203,
+        "links_shown": 138,
+        "precision_at_50": 0.0,
+        "hit_at_3": 0.9,
+        "precision_of_top3_suggestions": 0.006275056649816977,
+        "series_cases": 90,
+        "cases": 9564
+      },
+      "stress": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 266,
+        "false_members": 266,
+        "auc": 0.9672660706237043,
+        "link_precision": 0.0,
+        "links_shown": 139,
+        "precision_at_50": 0.0,
+        "hit_at_3": 0.8301886792452831,
+        "precision_of_top3_suggestions": 0.006123443045021223,
+        "series_cases": 106,
+        "cases": 9581
+      }
+    }
+  ]
+}

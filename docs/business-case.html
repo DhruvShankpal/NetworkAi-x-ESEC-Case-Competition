@@ -1,0 +1,250 @@
+<title>Series Desk Business Case</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column (case-file memo), wide tables scroll in their own frames; amber = signal, slate = record. */
+:root{
+  --bg:#f5f6f8; --paper:#ffffff; --fg:#1b2330; --muted:#5a6577; --rule:#d9dee6;
+  --accent:#b45f06; --accent-soft:#fbeedd; --good:#1f7a4d; --bad:#b3261e; --bar:#3c5a80;
+  --display:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12161d; --paper:#1a2029; --fg:#e4e8ee; --muted:#9aa5b5; --rule:#2e3744;
+  --accent:#f0a24a; --accent-soft:#3a2a17; --good:#5cc48d; --bad:#f2807a; --bar:#7fa3d1; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161d; --paper:#1a2029; --fg:#e4e8ee; --muted:#9aa5b5; --rule:#2e3744;
+  --accent:#f0a24a; --accent-soft:#3a2a17; --good:#5cc48d; --bad:#f2807a; --bar:#7fa3d1; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 72px}
+main{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:800 clamp(30px,5vw,44px)/1.08 var(--display);margin:0;text-wrap:balance}
+h2{font:600 24px/1.2 var(--display);margin:0;text-wrap:balance}
+h3{font:600 16px/1.3 var(--body);margin:0}
+p{margin:0;max-width:68ch}
+section{display:flex;flex-direction:column;gap:16px}
+.lede{font-size:18px;color:var(--muted);max-width:62ch}
+.verdict{background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--accent);padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.verdict strong{color:var(--fg)}
+.frame{overflow-x:auto;border:1px solid var(--rule);background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:500 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--bg)}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tr.base td{background:var(--accent-soft)}
+.yes{color:var(--good);font-weight:600}.no{color:var(--bad);font-weight:600}
+code,.mono{font-family:var(--mono);font-size:.92em}
+.note{font-size:14px;color:var(--muted)}
+.bars{display:flex;flex-direction:column;gap:10px;background:var(--paper);border:1px solid var(--rule);padding:16px 18px}
+.bar-row{display:grid;grid-template-columns:110px 1fr 64px;gap:12px;align-items:center;font-size:14px}
+.track{position:relative;height:14px;background:var(--bg);border:1px solid var(--rule)}
+.fill{position:absolute;inset:0 auto 0 0;background:var(--bar)}
+.target{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--accent)}
+.bar-row .n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.legend{font-size:13px;color:var(--muted)}
+.chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.step{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.step .k{font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.step .v{font:600 22px/1.1 var(--mono);font-variant-numeric:tabular-nums}
+.step .d{font-size:13px;color:var(--muted)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--paper);border:1px solid var(--rule);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+li{max-width:66ch}
+.metric{background:var(--paper);border:2px solid var(--accent);padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.metric .big{font:800 20px/1.25 var(--display)}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+footer{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--rule);padding-top:16px}
+@media (max-width:520px){.bar-row{grid-template-columns:84px 1fr 54px}}
+</style>
+
+<main>
+<header>
+  <span class="eyebrow">Cascade City PD · Burglary (NIBRS 220) · Stage 6 detective follow-up</span>
+  <h1>Series Desk business case</h1>
+  <p class="lede">What the linkage model is, how it was trained and tested on real police data, what it costs, how it moves clearance, and how a pilot would prove it. Every figure comes from code in the prototype repo (<code>eval/</code>), so anyone can rerun it.</p>
+</header>
+
+<div class="verdict">
+  <p><strong>Results against the two asks.</strong> On real LAPD burglary records, tested on four separate years, Series Desk puts a true series partner in a case's top-3 suggestions <strong>92% of the time, up from 36%</strong> for a standard model. That feeds the clearance math: the base case reaches <strong>15.5% (+19% relative)</strong>, short of the +25% ask (16.25%). The optimistic case reaches 17.7%. On cost, the base case saves <strong>$228K a year net, or 7.5%</strong> of the $3.05M baseline, short of the 15% ask, with payback in 9.5 months. We do not reach 15% net because two-thirds of per-case cost is officer time, which this tool doesn't touch.</p>
+</div>
+
+<!-- ============ 1. MODEL ============ -->
+<section id="model">
+  <span class="eyebrow">1 · The linkage model</span>
+  <h2>Statistics decides the links, not an AI chatbot</h2>
+  <p>For each pair of burglaries the model measures a few facts and combines them in a logistic regression, a standard statistical model. Its weights are learned from thousands of labelled pairs:</p>
+  <div class="frame"><table>
+    <thead><tr><th>Fact about a pair</th><th>How it is measured</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Distance and time gap</td><td>Kilometres (great-circle) and days between offences</td><td>Serial burglars work in a home range and in bursts</td></tr>
+      <tr><td>Method overlap, rare behaviours weighted up</td><td>Shared MO codes, each weighted by −ln(share of burglaries with it)</td><td>Sharing a code on 80% of burglaries says little; sharing a rare one says a lot</td></tr>
+      <tr><td>"Closest neighbour" ranks</td><td>Is B among A's closest burglaries in space-time, and among its most similar in method?</td><td>800 m means nothing downtown and a lot in a suburb; ranks adjust for local density</td></tr>
+      <tr><td>Same target type; both at night</td><td>Residential vs commercial; 20:00–06:00</td><td>Offenders repeat what works</td></tr>
+    </tbody>
+  </table></div>
+  <p>The score is the sum of one contribution per fact, turned into a probability. Those contributions are exactly the reasons the detective sees on each suggestion. An AI model is used in two narrow places only: turning narrative text into the fixed MO categories (every value must point to the words it came from), and drafting a summary of a series a detective has already accepted (every sentence checked against the records by code). Neither can create, score or accept a link.</p>
+  <p><strong>How it is used.</strong> For each new case the detective sees the <strong>3 most likely linked cases</strong> with their reasons, and accepts or rejects each with one click and a reason. The model never groups cases on its own. We tested automatic grouping and it was unreliable on real data (below), so a person makes every link.</p>
+</section>
+
+<!-- ============ 2. TRAINING ============ -->
+<section id="training">
+  <span class="eyebrow">2 · How it was trained and tested</span>
+  <h2>From 36% to 92%, measured on four years of real LAPD data</h2>
+  <p><strong>Data.</strong> No public dataset anywhere says which burglaries share an offender. The closest, Cambridge (MA) PD's hand-labelled series, is available only on request. So we used the most realistic public data we could find: <strong>LAPD's open crime data</strong>, which records real MO codes (242 distinct behaviours) alongside real locations and times for about 9,000 burglaries per April–November window. We injected known serial series into it, each built from a real LAPD case's own code set, so we know the right answer. Victim demographics are never downloaded.</p>
+  <p><strong>Test design.</strong> Leave one year out: for each of 2020, 2021, 2022 and 2023, train on the other three years and test on the held-out year. Every threshold is chosen on training-period data, never on the test year. 2020 (COVID) had a very different burglary mix, so it is the hardest check. 2024 is excluded because LAPD's switch to NIBRS left only about 1,000 records in the window.</p>
+  <p><strong>Headline metric (hit@3):</strong> when a case belongs to a series, how often is a true partner in its top-3 suggestions? hit@1 is the same for the single top suggestion.</p>
+  <div class="frame"><table>
+    <thead><tr><th>Test year</th><th class="n">Standard model hit@3</th><th class="n">Series Desk hit@3</th><th class="n">Standard hit@1</th><th class="n">Series Desk hit@1</th><th class="n">AUC (SD)</th></tr></thead>
+    <tbody>
+      <tr><td>2020 (COVID)</td><td class="n">33%</td><td class="n">93%</td><td class="n">16%</td><td class="n">75%</td><td class="n">0.982</td></tr>
+      <tr><td>2021</td><td class="n">37%</td><td class="n">94%</td><td class="n">18%</td><td class="n">76%</td><td class="n">0.972</td></tr>
+      <tr><td>2022</td><td class="n">35%</td><td class="n">88%</td><td class="n">21%</td><td class="n">60%</td><td class="n">0.963</td></tr>
+      <tr><td>2023</td><td class="n">39%</td><td class="n">91%</td><td class="n">26%</td><td class="n">77%</td><td class="n">0.980</td></tr>
+      <tr class="base"><td><strong>Mean (range)</strong></td><td class="n">36%</td><td class="n"><strong>92%</strong> (88–94)</td><td class="n">20%</td><td class="n"><strong>72%</strong> (60–77)</td><td class="n">0.974</td></tr>
+    </tbody>
+  </table></div>
+  <p>That's <strong>2.6× more series cases with a correct top-3 suggestion</strong> (+56 points) and <strong>3.6× more where the single top suggestion is right</strong> (+52 points), in every year tested.</p>
+  <div class="bars" role="img" aria-label="hit at 3 by test year: standard model about 33 to 39 percent, Series Desk 88 to 94 percent">
+    <div class="bar-row"><span>2020 std</span><div class="track"><div class="fill" style="width:33%;opacity:.45"></div></div><span class="n">33%</span></div>
+    <div class="bar-row"><span>2020 SD</span><div class="track"><div class="fill" style="width:93.2%"></div></div><span class="n">93%</span></div>
+    <div class="bar-row"><span>2021 std</span><div class="track"><div class="fill" style="width:36.6%;opacity:.45"></div></div><span class="n">37%</span></div>
+    <div class="bar-row"><span>2021 SD</span><div class="track"><div class="fill" style="width:94.1%"></div></div><span class="n">94%</span></div>
+    <div class="bar-row"><span>2022 std</span><div class="track"><div class="fill" style="width:34.7%;opacity:.45"></div></div><span class="n">35%</span></div>
+    <div class="bar-row"><span>2022 SD</span><div class="track"><div class="fill" style="width:88.4%"></div></div><span class="n">88%</span></div>
+    <div class="bar-row"><span>2023 std</span><div class="track"><div class="fill" style="width:38.9%;opacity:.45"></div></div><span class="n">39%</span></div>
+    <div class="bar-row"><span>2023 SD</span><div class="track"><div class="fill" style="width:91.1%"></div></div><span class="n">91%</span></div>
+    <span class="legend">hit@3, scale 0–100%. Pale = standard model (distance, time, plain MO overlap). Solid = Series Desk.</span>
+  </div>
+
+  <h3>What each change contributed (train 2022, test 2023)</h3>
+  <div class="frame"><table>
+    <thead><tr><th>Step</th><th>Change</th><th class="n">hit@3</th><th class="n">AUC</th><th>Kept?</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">0</td><td>Standard model: distance, time, plain MO overlap, target type, night</td><td class="n">37%</td><td class="n">0.837</td><td>Starting point</td></tr>
+      <tr><td class="mono">1</td><td>Rare behaviours count more (rarity-weighted MO overlap)</td><td class="n">38%</td><td class="n">0.840</td><td class="yes">Yes, needed for step 2</td></tr>
+      <tr><td class="mono">2</td><td>"Closest neighbour" ranks in space-time and method</td><td class="n">90%</td><td class="n">0.979</td><td class="yes">Yes, the big gain</td></tr>
+      <tr><td class="mono">3</td><td>Merge same-place, same-night burglaries into one event (461 pairs)</td><td class="n">90%</td><td class="n">0.980</td><td class="yes">Yes, cleaner top of list (precision@100 1% → 4%)</td></tr>
+      <tr><td class="mono">×</td><td>Flexible curves (GAM splines) instead of straight-line effects</td><td class="n">48%</td><td class="n">0.945</td><td class="no">No, overfit 2022</td></tr>
+      <tr><td class="mono">×</td><td>Automatic series grouping</td><td class="n">—</td><td class="n">—</td><td class="no">No, member F1 ≈ 0.01 on real codes</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Earlier rounds on Seattle data found two more fixes we kept: unweighted training so probabilities are calibrated, and dropping a "both glass broken" flag that got a backwards weight. Gradient boosting was tested and lost (AUC 0.76 vs 0.976).</p>
+
+  <h3>What the narrative adds</h3>
+  <p>LAPD codes are coarse (median 3–4 per case). Narratives hold finer detail. We measured what finer detail is worth by adding narrative-style fields (exact tool, technique, specific items) that the same offender repeats, captured at a given rate:</p>
+  <div class="frame"><table>
+    <thead><tr><th>Narrative detail captured per case</th><th class="n">hit@1</th><th class="n">hit@3</th></tr></thead>
+    <tbody>
+      <tr><td>None (codes only)</td><td class="n">73%</td><td class="n">90%</td></tr>
+      <tr><td>2 fields, captured half the time</td><td class="n">82%</td><td class="n">89%</td></tr>
+      <tr><td>3 fields, captured half the time</td><td class="n">81%</td><td class="n">94%</td></tr>
+      <tr><td>3 fields, captured 80% of the time</td><td class="n">88%</td><td class="n">93%</td></tr>
+    </tbody>
+  </table></div>
+  <p>This is why the narrative extractor matters: it mostly makes the <em>first</em> suggestion right (73% → 88%), which is what saves detective time. On a 300-narrative practice set (police shorthand, typos, negations, distractors, planted "ignore your instructions" lines), the rule-based extractor scored 98.6% field accuracy on phrasing it was not tuned on. That's an upper bound, since the same team wrote the phrases and the rules; a freehand, double-labelled set is part of the pilot.</p>
+  <p class="note"><strong>Reading these numbers honestly.</strong> Series are injected into real data, because no public data labels real ones. Precision is understated: all 50 of the model's most confident "wrong" pairs are two real LAPD burglaries at the same spot on the same day with near-identical codes, which are most likely real linked events the public data cannot confirm. LAPD's own records show about 8% of burglaries ending in an arrest (April–November 2022 and 2023), close to the 13% national clearance figure, so the setting is realistic.</p>
+</section>
+
+<!-- ============ 3. COST ============ -->
+<section id="cost">
+  <span class="eyebrow">3 · Cost-benefit</span>
+  <h2>Time saved, savings, payback and ROI</h2>
+  <p>Series Desk changes one task: the 90-minute detective analysis ($105 of the $305 per case). Detectives stop searching records by hand and review a top-3 list instead. Cases that join a series share one follow-up instead of several. It does not touch the 4 officer-hours, which are two-thirds of the cost.</p>
+  <div class="frame"><table>
+    <thead><tr><th>Scenario</th><th class="n">Min saved / case</th><th class="n">Detective hrs freed / yr</th><th class="n">Gross / yr</th><th class="n">Running / yr</th><th class="n">Net / yr</th><th class="n">Net % of $3.05M</th><th class="n">Build (once)</th><th class="n">Payback</th><th class="n">3-yr ROI</th></tr></thead>
+    <tbody>
+      <tr><td>Conservative</td><td class="n">16.2</td><td class="n">2,700</td><td class="n">$189,000</td><td class="n">$130,000</td><td class="n">$59,000</td><td class="n">1.9%</td><td class="n">$260,000</td><td class="n">53 mo</td><td class="n">−13%</td></tr>
+      <tr class="base"><td><strong>Base</strong></td><td class="n">27.4</td><td class="n">4,567</td><td class="n">$319,667</td><td class="n">$92,000</td><td class="n">$227,667</td><td class="n">7.5%</td><td class="n">$180,000</td><td class="n">9.5 mo</td><td class="n">110%</td></tr>
+      <tr><td>Optimistic</td><td class="n">36.5</td><td class="n">6,083</td><td class="n">$425,833</td><td class="n">$70,000</td><td class="n">$355,833</td><td class="n">11.7%</td><td class="n">$130,000</td><td class="n">4.4 mo</td><td class="n">276%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="bars" role="img" aria-label="Net savings as percent of baseline: conservative 1.9, base 7.5, optimistic 11.7, against a 15 percent target">
+    <div class="bar-row"><span>Conservative</span><div class="track"><div class="fill" style="width:9.5%"></div><div class="target" style="left:75%"></div></div><span class="n">1.9%</span></div>
+    <div class="bar-row"><span>Base</span><div class="track"><div class="fill" style="width:37.5%"></div><div class="target" style="left:75%"></div></div><span class="n">7.5%</span></div>
+    <div class="bar-row"><span>Optimistic</span><div class="track"><div class="fill" style="width:58.5%"></div><div class="target" style="left:75%"></div></div><span class="n">11.7%</span></div>
+    <span class="legend">Scale 0–20% of the $3.05M baseline. Amber line = the Chief's 15% net target ($457,500).</span>
+  </div>
+  <div class="two">
+    <div class="card"><h3>How the base case is built</h3>
+      <ul>
+        <li>Search time falls by 25 of the 90 minutes. We assume about 40 minutes is cross-referencing today, cut to about 15 by reviewing the top-3 list. The 72% top-1 accuracy is what makes that short review realistic.</li>
+        <li>12% of cases join an accepted series and save 20 more minutes each from a shared follow-up.</li>
+        <li>27.4 min × 10,000 cases × $70/hr = $319,667 gross.</li>
+        <li>Running, $92K/yr: secure government cloud hosting $30K; LLM use under $2K; 0.25 FTE support $40K; compliance and bias audits $12K; training $8K.</li>
+        <li>Build, $180K once: records-system integration $70K; CJIS hosting and security review $45K; finishing the app and evaluation $35K; surveillance review, policy and legal $20K; training materials $10K.</li>
+      </ul></div>
+    <div class="card"><h3>Why we miss 15%, and what would close the gap</h3>
+      <ul>
+        <li>15% net needs $549.5K gross, which is 47 minutes saved out of a 90-minute task, every case. We don't think that is credible from one tool.</li>
+        <li>The rest of the money is officer time, mainly video review (120 min, about $1M/yr). A phase-2 step that narrows video review to a linked series' time window could add about 3 points, still short of 15%.</li>
+        <li>Most of the saving is freed detective hours (about 2.6 full-time detectives), not cash. It becomes cash only if the city chooses not to backfill posts or cuts overtime. We count the hours once: as savings here, not as extra clearance below.</li>
+      </ul></div>
+  </div>
+</section>
+
+<!-- ============ 4. CLEARANCE ============ -->
+<section id="clearance">
+  <span class="eyebrow">4 · Clearance logic</span>
+  <h2>How linking cases moves clearance toward 16.25%</h2>
+  <p>The Chief's ask is 13% → 16.25%, which is <strong>325 more cleared cases a year</strong>. Series Desk does not arrest anyone. It changes what happens when an arrest does occur. A serial burglar who is caught can be tied to every case in their series, but today detectives only clear the cases they managed to connect. Linked cases also pool leads (one case has video, another a print), which makes the arrest more likely.</p>
+  <div class="chain" aria-label="Base-case clearance chain">
+    <div class="step"><span class="k">Serial cases</span><span class="v">2,500</span><span class="d">25% of 10,000 are part of a series (assumption)</span></div>
+    <div class="step"><span class="k">Series ending in arrest</span><span class="v">30% → 36%</span><span class="d">Pooled leads lift arrests by a fifth (assumption)</span></div>
+    <div class="step"><span class="k">Cases attached at arrest</span><span class="v">35% → 75%</span><span class="d">Detective's own links, or the model's: 92% hit@3 (measured) × 2 in 3 confirmed</span></div>
+    <div class="step"><span class="k">Attached that clear</span><span class="v">60%</span><span class="d">Needs evidence or an admission; a match alone is not enough</span></div>
+    <div class="step"><span class="k">Extra cleared</span><span class="v">+246</span><span class="d">158 → 403 serial clearances a year</span></div>
+  </div>
+  <div class="frame"><table>
+    <thead><tr><th>Scenario</th><th class="n">Serial share</th><th class="n">Arrest lift</th><th class="n">Found by model</th><th class="n">Clear rate</th><th class="n">Extra cleared</th><th class="n">Clearance</th><th class="n">Relative lift</th><th>Hits +25%?</th></tr></thead>
+    <tbody>
+      <tr><td>Conservative</td><td class="n">20%</td><td class="n">+10%</td><td class="n">44%</td><td class="n">50%</td><td class="n">+105</td><td class="n">14.1%</td><td class="n">+8.1%</td><td class="no">No</td></tr>
+      <tr class="base"><td><strong>Base</strong></td><td class="n">25%</td><td class="n">+20%</td><td class="n">61%</td><td class="n">60%</td><td class="n">+246</td><td class="n">15.5%</td><td class="n">+18.9%</td><td class="no">No</td></tr>
+      <tr><td>Optimistic</td><td class="n">30%</td><td class="n">+30%</td><td class="n">75%</td><td class="n">70%</td><td class="n">+465</td><td class="n">17.7%</td><td class="n">+35.8%</td><td class="yes">Yes</td></tr>
+    </tbody>
+  </table></div>
+  <p>"Found by model" = measured hit@3 × the share of correct suggestions a detective confirms: worst year 88% × ½; mean 92% × ⅔; with narrative detail 93% × 0.8.</p>
+  <p><strong>What would have to be true to hit 16.25%.</strong> Roughly 30% of burglaries serial, narrative detail captured in most reports, and 70% of linked cases converting to clearances. In public reporting on a 2018 Puget Sound commercial spree, about 50 burglaries were admitted against a handful charged early on, which suggests the gap this targets is real. The pilot measures each of these numbers directly instead of assuming them.</p>
+  <p class="note">The serial share, arrest lift, confirmation rate and conversion are assumptions. hit@3 is measured, on real LAPD data with injected series. Officers' time and patrol activity do not change, so there is no extra enforcement in any neighbourhood.</p>
+</section>
+
+<!-- ============ 5. PILOT ============ -->
+<section id="pilot">
+  <span class="eyebrow">5 · Pilot plan</span>
+  <h2>First 90 days, then one year</h2>
+  <div class="two">
+    <div class="card"><h3>Days 1–90 · one precinct burglary unit</h3>
+      <ul>
+        <li><strong>Scope:</strong> one unit of 4–6 detectives, about 500 burglaries. Runs nightly on a copy of records in secure (CJIS-compliant) government cloud. Each new case gets a top-3 list as a task in the records system detectives already use, so there is no new app to log into.</li>
+        <li><strong>Days 1–30, shadow mode:</strong> lists are logged but not shown. Detectives work as usual, giving a baseline of what they link without help.</li>
+        <li><strong>Days 31–90, live:</strong> one click to accept or reject a suggestion, with a required reason. Time is measured from system timestamps, not surveys, because the 2024 report-writing trial found vendor time claims didn't hold (Adams et al., 2024).</li>
+        <li><strong>Training:</strong> a 2-hour hands-on session on synthetic cases, a one-page card on what the model knows and doesn't, and a weekly 30-minute check-in with the crime analyst.</li>
+        <li><strong>Gate at day 90:</strong> at least 60% of accepted links hold up on review, at least 15 detective minutes saved per case, and no neighbourhood flagged at more than 1.5× or under 0.67× the citywide suggestion rate.</li>
+      </ul></div>
+    <div class="card"><h3>By 1 year · staggered citywide rollout</h3>
+      <ul>
+        <li><strong>Scope:</strong> the remaining precincts switch on one at a time, every quarter, in random order. Precincts not yet switched serve as the comparison group, so the effect is causal, not a before-and-after story.</li>
+        <li><strong>Accuracy:</strong> every accept and reject becomes a real label. Retrain quarterly on those, inside the secure boundary, and replace the injected-series estimates with real ones. Add the narrative extractor and the victim follow-up for missing method details.</li>
+        <li><strong>Oversight:</strong> monthly bias audit by neighbourhood; quarterly review with a community advisory group; surveillance-technology review completed before go-live.</li>
+        <li><strong>Cost check:</strong> real running costs and timestamped minutes replace the assumptions in the cost table above.</li>
+      </ul></div>
+  </div>
+  <div class="metric">
+    <span class="eyebrow">The one metric that proves it works</span>
+    <p class="big">Burglary clearance rate in switched-on precincts versus not-yet-switched precincts, measured from the records system over the year.</p>
+    <p>Clearance moves too slowly to read in 90 days, so the day-90 leading indicator is the share of accepted links that hold up on review. If clearance does not move in the comparison, the program stops, whatever the time savings look like.</p>
+  </div>
+</section>
+
+<footer>
+  <span>Case-given baseline: 10,000 burglaries a year, 13% cleared, officer $50/hr, detective $70/hr, $305 per case (Cascade City is fictional). National 13% clearance figure from the Council on Criminal Justice, as cited in the case.</span>
+  <span>Data: <a href="https://data.lacity.org/">LA City open data</a>, LAPD "Crime Data from 2020 to 2024" (2nrs-mtv8), burglary code 310, April–November 2020–2023; <a href="https://data.seattle.gov/">Seattle open data</a>, SPD Crime Data (tazs-3rd5). Victim demographic fields were never downloaded.</span>
+  <span>Sources: Adams, Barter, McLean, Boehme &amp; Geary (2024), Journal of Experimental Criminology; Tonkin et al. (2019), Journal of Investigative Psychology and Offender Profiling (cited from its abstract); Wang, Rudin, Wagner &amp; Sevieri (2013), "Detecting patterns of crime with Series Finder" (<a href="https://scholars.duke.edu/publication/1290260">Duke Scholars</a>). The 2018 spree figures come from public news coverage as summarized in our build file and were not re-verified.</span>
+</footer>
+</main>

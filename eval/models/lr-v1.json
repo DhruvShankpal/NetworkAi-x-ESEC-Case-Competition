@@ -1,0 +1,18 @@
+{
+  "coef": [
+    -0.23362026098358712,
+    -0.46937316737910567,
+    10.648492470037642,
+    2.908102150799992,
+    1.7836452993266632
+  ],
+  "features": [
+    "log_distance_km",
+    "log_days_apart",
+    "mo_jaccard",
+    "same_target_type",
+    "both_night"
+  ],
+  "intercept": -14.225724035666362,
+  "version": "lr-v1"
+}

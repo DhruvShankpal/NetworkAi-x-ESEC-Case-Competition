@@ -1,0 +1,61 @@
+{
+  "method": "How much is narrative detail worth? Sensitivity analysis on REAL LA data.\n\nLAPD Mocodes are coarse (median 3-4 codes, the top codes on most burglaries). Narratives hold finer detail\n(exact tool, entry technique, specific items taken, offender behaviour). We add k such detail fields per\ncase and ask how much the detective-facing metric (hit@3) improves.\n\nModel of a detail field (assumptions, stated):\n  * each field has 20 possible values with a skewed (Zipf-like) frequency, like real MO vocabularies;\n  * a serial offender has one usual value per field;\n  * a case's narrative yields that field with probability r (offender consistency x officer wrote it down\n    x extractor got it right), and when it is captured it is the offender's usual value 85% of the time;\n  * unrelated cases get values from the same frequency distribution, also captured with probability r.\nModel: the L2 configuration (rarity-weighted MO + closest-neighbour ranks). Train 2022, test 2023.\nRun: uv run python eval/narrative_value.py",
+  "results": [
+    {
+      "detail_fields": 0,
+      "capture_rate": 0.0,
+      "hit_at_3": 0.9,
+      "hit_at_1": 0.733,
+      "top3_precision": 0.0063,
+      "precision_at_100": 0.01
+    },
+    {
+      "detail_fields": 1,
+      "capture_rate": 0.5,
+      "hit_at_3": 0.889,
+      "hit_at_1": 0.778,
+      "top3_precision": 0.0064,
+      "precision_at_100": 0.0
+    },
+    {
+      "detail_fields": 2,
+      "capture_rate": 0.5,
+      "hit_at_3": 0.889,
+      "hit_at_1": 0.822,
+      "top3_precision": 0.0063,
+      "precision_at_100": 0.0
+    },
+    {
+      "detail_fields": 3,
+      "capture_rate": 0.5,
+      "hit_at_3": 0.944,
+      "hit_at_1": 0.811,
+      "top3_precision": 0.007,
+      "precision_at_100": 0.01
+    },
+    {
+      "detail_fields": 1,
+      "capture_rate": 0.8,
+      "hit_at_3": 0.922,
+      "hit_at_1": 0.8,
+      "top3_precision": 0.0069,
+      "precision_at_100": 0.01
+    },
+    {
+      "detail_fields": 2,
+      "capture_rate": 0.8,
+      "hit_at_3": 0.933,
+      "hit_at_1": 0.822,
+      "top3_precision": 0.0073,
+      "precision_at_100": 0.02
+    },
+    {
+      "detail_fields": 3,
+      "capture_rate": 0.8,
+      "hit_at_3": 0.933,
+      "hit_at_1": 0.878,
+      "top3_precision": 0.0077,
+      "precision_at_100": 0.01
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "method": "Linker v2 on REAL LA data: additive spline model (GAM) + same-event merge. Compared with v1 (L2 logistic).\n\nv1  logistic regression, straight-line effects (the L2 configuration).\nv2a GAM: each continuous fact gets a smooth curve (cubic splines, 5 knots) instead of a straight line;\n    still additive, so the score is exactly the sum of one contribution per fact.\nv2b same-event merge: pairs < 150 m apart and < 24 h apart are one EVENT (e.g. several units hit in one\n    night). They are shown to the detective as \"same event\" and are not scored as cross-day links.\n    All metrics below are for cross-event links, which is where linkage work is needed.\nTrain: 2 seeds over LAPD 2022; test: seed 777 over LAPD 2023; stress: seed 778 (noisier recording).\nMetrics: hit@1 / hit@3 (series case has a true partner in its top-1 / top-3), precision@100 of the\nhighest-scoring cross-event links, AUC.\nRun: uv run python eval/linker_v2.py",
+  "rows": [
+    {
+      "model": "v1 logistic (current)",
+      "test": {
+        "auc": 0.9793,
+        "hit_at_1": 0.733,
+        "hit_at_3": 0.9,
+        "precision_at_100": 0.01,
+        "precision_at_25": 0.0
+      },
+      "stress": {
+        "auc": 0.9673,
+        "hit_at_1": 0.623,
+        "hit_at_3": 0.83,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0
+      }
+    },
+    {
+      "model": "v2a GAM splines",
+      "test": {
+        "auc": 0.9446,
+        "hit_at_1": 0.311,
+        "hit_at_3": 0.478,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0
+      },
+      "stress": {
+        "auc": 0.8948,
+        "hit_at_1": 0.208,
+        "hit_at_3": 0.387,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0
+      }
+    },
+    {
+      "model": "v1 + same-event merge",
+      "test": {
+        "auc": 0.9795,
+        "hit_at_1": 0.733,
+        "hit_at_3": 0.9,
+        "precision_at_100": 0.04,
+        "precision_at_25": 0.0,
+        "same_event_pairs_merged": 461
+      },
+      "stress": {
+        "auc": 0.9675,
+        "hit_at_1": 0.613,
+        "hit_at_3": 0.83,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0,
+        "same_event_pairs_merged": 460
+      }
+    },
+    {
+      "model": "v2 GAM + same-event merge",
+      "test": {
+        "auc": 0.9449,
+        "hit_at_1": 0.311,
+        "hit_at_3": 0.478,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0,
+        "same_event_pairs_merged": 461
+      },
+      "stress": {
+        "auc": 0.895,
+        "hit_at_1": 0.217,
+        "hit_at_3": 0.387,
+        "precision_at_100": 0.0,
+        "precision_at_25": 0.0,
+        "same_event_pairs_merged": 460
+      }
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "protocol": "Accuracy steps on REAL MO data (LAPD Mocodes over real LA locations/times; injected series).\n\nProtocol: train = 2 seeds over LAPD 2022; validation = 1 seed over LAPD 2022 (all thresholds chosen here);\ntest = seed 777 over LAPD 2023 (scored once per step); stress = seed 778 over 2023 with noisier\nrecording (keep 0.6, add 0.7). Run: uv run python eval/improve_la.py",
+  "n_pairs": {
+    "test": 2562801,
+    "test_true": 274
+  },
+  "steps": [
+    {
+      "step": "L0 baseline model on real MO",
+      "threshold": 0.1,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": -1.938,
+        "log_days": -1.67,
+        "mo_jaccard": -0.322,
+        "same_target": -0.716,
+        "both_night": -0.154
+      },
+      "validation": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 20,
+        "false_members": 20,
+        "auc": 0.8545348775633298,
+        "link_precision": 0.0,
+        "links_shown": 10,
+        "precision_at_50": 0.0
+      },
+      "test": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 34,
+        "false_members": 34,
+        "auc": 0.8367166529751844,
+        "link_precision": 0.0,
+        "links_shown": 18,
+        "precision_at_50": 0.0
+      },
+      "stress": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 34,
+        "false_members": 34,
+        "auc": 0.8370215178028806,
+        "link_precision": 0.0,
+        "links_shown": 18,
+        "precision_at_50": 0.0
+      }
+    },
+    {
+      "step": "L1 + rare behaviours count more",
+      "threshold": 0.1,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": -1.96,
+        "log_days": -1.679,
+        "mo_rarity_jaccard": -0.095,
+        "same_target": -0.742,
+        "both_night": -0.158
+      },
+      "validation": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 20,
+        "false_members": 20,
+        "auc": 0.8579861329734357,
+        "link_precision": 0.0,
+        "links_shown": 10,
+        "precision_at_50": 0.0
+      },
+      "test": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 38,
+        "false_members": 38,
+        "auc": 0.8399773998179756,
+        "link_precision": 0.0,
+        "links_shown": 20,
+        "precision_at_50": 0.0
+      },
+      "stress": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 38,
+        "false_members": 38,
+        "auc": 0.8387371385504757,
+        "link_precision": 0.0,
+        "links_shown": 20,
+        "precision_at_50": 0.0
+      }
+    },
+    {
+      "step": "L2 + 'closest neighbour' ranks",
+      "threshold": 0.1,
+      "grow_tau": null,
+      "coef": {
+        "log_dist": -0.398,
+        "log_days": -0.486,
+        "mo_rarity_jaccard": -0.059,
+        "same_target": -0.216,
+        "both_night": -0.019,
+        "st_rank": -0.768,
+        "mo_rank": -1.005
+      },
+      "validation": {
+        "member_recall": 0.09782608695652174,
+        "member_precision": 0.012547051442910916,
+        "member_f1": 0.022241443222537995,
+        "cases_flagged": 797,
+        "false_members": 787,
+        "auc": 0.9772779216495424,
+        "link_precision": 0.009195402298850575,
+        "links_shown": 435,
+        "precision_at_50": 0.0
+      },
+      "test": {
+        "member_recall": 0.1,
+        "member_precision": 0.017127799736495388,
+        "member_f1": 0.029246344206974126,
+        "cases_flagged": 759,
+        "false_members": 746,
+        "auc": 0.9793209100714364,
+        "link_precision": 0.016706443914081145,
+        "links_shown": 419,
+        "precision_at_50": 0.0
+      },
+      "stress": {
+        "member_recall": 0.03773584905660377,
+        "member_precision": 0.0053475935828877,
+        "member_f1": 0.00936768149882904,
+        "cases_flagged": 748,
+        "false_members": 744,
+        "auc": 0.9672660706237043,
+        "link_precision": 0.004842615012106538,
+        "links_shown": 413,
+        "precision_at_50": 0.0
+      }
+    },
+    {
+      "step": "L3 + series-level evidence",
+      "threshold": 0.3,
+      "grow_tau": 0.3,
+      "coef": {
+        "log_dist": -0.398,
+        "log_days": -0.486,
+        "mo_rarity_jaccard": -0.059,
+        "same_target": -0.216,
+        "both_night": -0.019,
+        "st_rank": -0.768,
+        "mo_rank": -1.005
+      },
+      "validation": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 101,
+        "false_members": 101,
+        "auc": 0.9772779216495424,
+        "link_precision": 0.0,
+        "links_shown": 49,
+        "precision_at_50": 0.0
+      },
+      "test": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 97,
+        "false_members": 97,
+        "auc": 0.9793209100714364,
+        "link_precision": 0.0,
+        "links_shown": 48,
+        "precision_at_50": 0.0
+      },
+      "stress": {
+        "member_recall": 0.0,
+        "member_precision": 0.0,
+        "member_f1": 0.0,
+        "cases_flagged": 99,
+        "false_members": 99,
+        "auc": 0.9672660706237043,
+        "link_precision": 0.0,
+        "links_shown": 49,
+        "precision_at_50": 0.0
+      }
+    }
+  ]
+}

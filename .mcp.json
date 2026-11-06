@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "rms":      { "command": "uv", "args": ["run", "backend/mcp_servers/rms_readonly.py"],
+                  "env": { "SD_READONLY_DSN": "${SD_READONLY_DSN}", "SD_AUDIT_DSN": "${SD_AUDIT_DSN}", "SD_ACTOR": "agent:claude-code" } },
+    "linkage":  { "command": "uv", "args": ["run", "backend/mcp_servers/linkage.py"],
+                  "env": { "SD_READONLY_DSN": "${SD_READONLY_DSN}", "SD_AUDIT_DSN": "${SD_AUDIT_DSN}", "SD_ACTOR": "agent:claude-code" } },
+    "geo":      { "command": "uv", "args": ["run", "backend/mcp_servers/geo.py"],
+                  "env": { "SD_READONLY_DSN": "${SD_READONLY_DSN}", "SD_AUDIT_DSN": "${SD_AUDIT_DSN}", "SD_ACTOR": "agent:claude-code" } },
+    "audit":    { "command": "uv", "args": ["run", "backend/mcp_servers/audit.py"],
+                  "env": { "SD_AUDIT_DSN": "${SD_AUDIT_DSN}", "SD_ACTOR": "agent:claude-code" } },
+    "notify":   { "command": "uv", "args": ["run", "backend/mcp_servers/notify.py"],
+                  "env": { "DATABASE_URL": "${DATABASE_URL}", "SD_AUDIT_DSN": "${SD_AUDIT_DSN}", "SD_ACTOR": "agent:claude-code" } },
+    "playwright": { "command": "npx", "args": ["@playwright/mcp@latest"] },
+    "filesystem": { "command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem",
+                    "./backend", "./frontend", "./eval", "./data/synthetic"] },
+    "git":      { "command": "uvx", "args": ["mcp-server-git", "--repository", "."] },
+    "fetch":    { "command": "uvx", "args": ["mcp-server-fetch"] },
+    "github":   { "type": "http", "url": "https://api.githubcopilot.com/mcp/" }
+  }
+}
