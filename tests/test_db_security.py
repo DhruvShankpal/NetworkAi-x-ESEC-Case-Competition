@@ -80,3 +80,13 @@ def test_chain_verifies_end_to_end():
     for r in rows:
         r["prev_hash"], r["row_hash"] = bytes.fromhex(r["prev_hash"]), bytes.fromhex(r["row_hash"])
     assert rows and verify_chain(rows) == (True, None)
+
+
+def test_concurrent_appends_from_threads_keep_chain_linear():
+    """Regression: FastAPI's threadpool shared one writer and forked the chain (seq 122, 2026-11-06)."""
+    from concurrent.futures import ThreadPoolExecutor
+    w = AuditWriter(os.environ["SD_AUDIT_DSN"])
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        seqs = list(ex.map(lambda n: w.append(make_event("pytest", "system", tool="concurrency", args={"n": n})), range(40)))
+    assert len(set(seqs)) == 40
+    test_chain_verifies_end_to_end()

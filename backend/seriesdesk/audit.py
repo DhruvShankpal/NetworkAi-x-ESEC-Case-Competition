@@ -64,12 +64,16 @@ class AuditWriter:
     LOCK_KEY = 0x5D_A0D1
 
     def __init__(self, dsn: str):
+        import threading
         import psycopg
         self._conn = psycopg.connect(dsn, autocommit=False)
+        # The advisory lock is re-entrant within one connection, so threads sharing this writer
+        # (e.g. FastAPI's threadpool) must also be serialized in-process, or the chain forks.
+        self._lock = threading.Lock()
 
     def append(self, event: Mapping[str, Any]) -> int:
         from psycopg.types.json import Jsonb
-        with self._conn.cursor() as cur:
+        with self._lock, self._conn.cursor() as cur:
             cur.execute("select pg_advisory_xact_lock(%s)", (self.LOCK_KEY,))
             cur.execute("select audit.last_hash()")
             prev = bytes(cur.fetchone()[0] or GENESIS)
@@ -84,5 +88,5 @@ class AuditWriter:
                  event.get("action_taken"), prev, rh))
             cur.execute("select currval('audit.audit_log_seq_seq')")  # writer has no SELECT on the table
             seq = cur.fetchone()[0]
-        self._conn.commit()
+            self._conn.commit()  # inside the lock: the next append must see this row as the chain tip
         return seq

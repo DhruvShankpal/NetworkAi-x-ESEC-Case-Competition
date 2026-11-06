@@ -1497,6 +1497,11 @@ dependencies = [
     { name = "scikit-learn" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "httpx" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "anthropic", specifier = ">=2.6.0" },
@@ -1510,6 +1515,9 @@ requires-dist = [
     { name = "pytest", specifier = ">=9.2.0" },
     { name = "scikit-learn", specifier = ">=1.9.1" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "httpx", specifier = ">=0.28.1" }]
 
 [[package]]
 name = "sniffio"

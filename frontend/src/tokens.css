@@ -1,0 +1,63 @@
+/* CaseWeb · Dusk theme.
+   Layout: top bar + three-pane workbench (queue | case + web/map/table | link decision).
+   One accent (dusk amber) for: primary action, current selection, accepted links. Nothing else. */
+:root {
+  color-scheme: dark;
+  --color-bg: #12141f;          /* night sky */
+  --color-surface: #191c2a;     /* panes */
+  --color-surface-2: #212537;   /* raised rows, inputs */
+  --color-surface-3: #2a2f45;   /* hover */
+  --color-border: #3a405a;      /* 3:1 on surface for UI edges */
+  --color-border-soft: #2b3046;
+  --color-text: #e8e6ef;
+  --color-text-muted: #a9abc0;  /* 7.6:1 on bg */
+  --color-text-faint: #8d90a8;  /* 5.1:1 on bg, labels only */
+  --color-accent: #f2a65a;      /* dusk amber */
+  --color-accent-ink: #1b1208;  /* text on accent */
+  --color-accent-soft: #3a2a1c;
+  --color-focus: #ffd38f;
+  --color-error: #f3968a;
+  --color-error-soft: #3a2223;
+  --color-edge: #8b90ad;        /* suggested links */
+  --color-node-res: #7d8bb0;    /* district ramp, muted */
+  --color-ramp-1: #6f7fa6;
+  --color-ramp-2: #8a86ad;
+  --color-ramp-3: #7a98a8;
+  --color-ramp-4: #9c8ea0;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --text-xs: 12.5px;
+  --text-sm: 14px;
+  --text-md: 15.75px;
+  --text-lg: 17.75px;
+  --text-xl: 20px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --control-h: 36px;
+  --hit: 44px;
+  --dur-fast: 120ms;
+  --dur-med: 180ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+.num, td.num, .tabular { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--font-mono); font-size: 0.95em; }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+input:focus-visible, select:focus-visible { outline-offset: -2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0ms !important; animation: none !important; }
+}

@@ -10,3 +10,4 @@ data/synthetic/*.jsonl
 node_modules/
 .next/
 data/lapd/
+frontend/dist/
